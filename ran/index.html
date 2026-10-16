@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ellebey PS Exploit Host</title>
+    <!-- تم تعديل مسار الـ CSS ليكون للخلف خطوة لأن الملف داخل مجلد ran -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- شريط اللوجو العلوي مع تصحيح مسار الصورة للخلف -->
+        <div id="brand">
+            <img src="../logo_Ellebey.png" alt="Ellebey Logo">
+            <b>ELLEBEY PS</b>
+        </div>
+
+        <!-- خانة عرض الحالة والرسائل في المنتصف تماماً وبشكل مريح -->
+        <div style="margin: 35px 0; width: 100%;">
+            <span id="msgs" style="font-size: 20px; font-weight: 700; color: #ffd700; text-shadow: 0 2px 8px rgba(0,0,0,0.9); font-family: 'Rajdhani', sans-serif;">⏳ Loading GoldHEN v2.4b18.12... Please Wait</span>
+        </div>
+
+        <!-- الفوتر -->
+        <footer>
+            <p class="credit">Designed by <a href="#" class="credit-link">Ellebey</a></p>
+            <p class="thanks">❤️ Special thanks to all scene developers</p>
+        </footer>
+    </div>
+
+    <script>
+        var uaFull = navigator.userAgent;
+        var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
+        var isPS4 = match !== null;
+        var fwVersion = isPS4 ? match[1] : "Unknown";
+        var fwNum = parseFloat(fwVersion);
+
+        var msgs = document.getElementById('msgs');
+
+        function onScriptError() {
+            msgs.innerHTML = "Content not Found! - Clear Browser Data and Re-Install Cache ...";
+            msgs.style.color = "#ff4757";
+        }
+
+        window.onload = function() {
+            if (!isPS4) {
+                msgs.innerHTML = "This host is restricted to PlayStation 4 consoles.";
+                msgs.style.color = "#ff4757";
+            } else {
+                if (window.applicationCache && window.applicationCache.status == 0) {
+                    if (fwNum == 5.05 || fwNum == 5.07) {
+                        msgs.innerHTML = "Installing Cache for FW " + fwVersion + "...";
+                        setTimeout(function() { window.location.replace("cache505.html"); }, 500);
+                    } else if (fwNum >= 7.00 && fwNum <= 8.52) {
+                        msgs.innerHTML = "Installing Cache for FW " + fwVersion + "...";
+                        setTimeout(function() { window.location.replace("cache700.html"); }, 500);
+                    } else if (fwNum >= 9.00 && fwNum <= 9.60) {
+                        msgs.innerHTML = "Installing Cache for FW " + fwVersion + "...";
+                        setTimeout(function() { window.location.replace("cache900.html"); }, 500);
+                    } else if (fwNum >= 10.00 && fwNum <= 11.02) {
+                        msgs.innerHTML = "Installing Cache for FW " + fwVersion + "...";
+                        setTimeout(function() { window.location.replace("cachecss.html"); }, 500);
+                    } else if (fwNum >= 11.50 && fwNum <= 13.52) {
+                        msgs.innerHTML = "Installing Cache for FW " + fwVersion + "...";
+                        setTimeout(function() { window.location.replace("cacheslopkit.html"); }, 500);
+                    } else {
+                        msgs.innerHTML = 'Unsupported Firmware: <span style="color: #ff4757;">' + fwVersion + '</span>';
+                    }
+                } else {
+                    if (fwNum == 5.05 || fwNum == 5.07) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.src = "505/exploit.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 7.00 && fwNum <= 8.52) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "700/alert.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 9.00 && fwNum <= 9.60) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "900/alert.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 10.00 && fwNum <= 11.02) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.src = "css/main.js";
+                        script.onerror = onScriptError;
+                        script.onload = function () {
+                            setTimeout(function () { doJb(); }, 500);
+                        };
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 11.50 && fwNum <= 12.02) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/chain_lapse.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 12.50 && fwNum <= 13.00) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/chain_poops.js";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                    else if (fwNum >= 13.02 && fwNum <= 13.52) {
+                        msgs.innerHTML = "Loading Exploit for FW " + fwVersion + "...";
+                        var script = document.createElement('script');
+                        script.type = 'module';
+                        script.src = "slopkit/jb.js?v=19";
+                        script.onerror = onScriptError;
+                        document.head.appendChild(script);
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>
